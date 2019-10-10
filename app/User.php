@@ -12,13 +12,37 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
 {
     use Authenticatable, Authorizable;
 
+    protected $table = 'user';
+    protected $primaryKey = 'id';
+    public $incrementing = true;
+    protected $keyType = 'integer';
+    public $timestamps = true;
+    protected $dateFormat = 'Y-m-d H:i:s';
+    
+    const CREATED_AT = 'created_at';
+    const UPDATED_AT = 'updated_at';
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'email',
+        'username',
+        'nama_lengkap',
+        'email',
+        'passworrd',
+        'jenis_kelamin',
+        'tanggal_lahir',
+        'no_handphone',
+        'alamat',
+        'api_token',
+        'created_at',
+        'updated_at',
+    ];
+
+    protected $attributes = [
+        'api_token' => ""
     ];
 
     /**
@@ -28,5 +52,8 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      */
     protected $hidden = [
         'password',
+        'api_token',
+        'created_at',
+        'last_updated',
     ];
 }

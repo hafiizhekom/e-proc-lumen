@@ -15,6 +15,22 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-$router->get('foo', function () {
-    return 'Hello World';
+
+$router->get('user3', 'UserController@show3'); 
+$router->group(['middleware' => 'jwt.auth'], function () use ($router) {
+    $router->get('user', 'UserController@show');
 });
+
+$router->group(['middleware' => 'auth:api'], function () use ($router) {
+    $router->get('user2', 'UserController@show2');    
+});
+
+$router->post('login', [
+    'middleware' => 'login',
+    'uses' => 'LoginController@login'
+]);
+
+$router->post('register', [
+    'middleware' => 'register',
+    'uses' => 'RegisterController@register'
+]);
