@@ -61,7 +61,27 @@ $app->routeMiddleware([
     'login' => App\Http\Middleware\LoginMiddleware::class,
     'register' => App\Http\Middleware\RegisterMiddleware::class,
     'auth' => App\Http\Middleware\Authenticate::class,
-    'jwt.auth' => App\Http\Middleware\JwtMiddleware::class
+    // 'jwt.auth' => App\Http\Middleware\JwtMiddleware::class,
+    'vendor' => App\Http\Middleware\VendorMiddleware::class,
+    'vendordetail' => App\Http\Middleware\VendorDetailMiddleware::class,
+    'vendordokumen' => App\Http\Middleware\VendorDokumenMiddleware::class,
+    'vendorkategori' => App\Http\Middleware\VendorKategoriMiddleware::class,
+    'vendortipe' => App\Http\Middleware\VendorTipeMiddleware::class,
+    'tender' => App\Http\Middleware\Tender::class,
+    'tenderdetail' => App\Http\Middleware\TenderDetail::class,
+    'tendertahap' => App\Http\Middleware\TenderTahapMiddleware::class,
+    'tendermetodedokumen' => App\Http\Middleware\TenderMetodeDokumenMiddleware::class,
+    'tendermetodeevaluasi' => App\Http\Middleware\TenderMetodeEvaluasiMiddleware::class,
+    'tendermetodekualifikasi' => App\Http\Middleware\TenderMetodeKualifikasiMiddleware::class,
+    'tendermetodepengadaan' => App\Http\Middleware\TenderMetodePengadaanMiddleware::class,
+    'tendercarapembayaran' => App\Http\Middleware\TenderCaraPembayaranMiddleware::class,
+    'tenderkualifikasi' => App\Http\Middleware\TenderKualifikasiMiddleware::class,
+    'tenderkebutuhan' => App\Http\Middleware\TenderKebutuhan::class,
+    'tenderkebutuhanbarang' => App\Http\Middleware\TenderKebutuhanBarangMiddleware::class,
+    'tenderkebutuhansatuan' => App\Http\Middleware\TenderKebutuhanSatuanMiddleware::class,
+    'tenderkebutuhansatuan' => App\Http\Middleware\TenderKebutuhanSatuanMiddleware::class,
+    'bidtendervendor' => App\Http\Middleware\BidTenderVendorMiddleware::class,
+    'bidtendertahap' => App\Http\Middleware\BidTenderTahapMiddleware::class,
 ]);
 
 /*
@@ -78,6 +98,11 @@ $app->routeMiddleware([
 $app->register(App\Providers\AppServiceProvider::class);
 $app->register(App\Providers\AuthServiceProvider::class);
 $app->register(App\Providers\EventServiceProvider::class);
+$app->register(Krlove\EloquentModelGenerator\Provider\GeneratorServiceProvider::class);
+
+
+
+
 
 /*
 |--------------------------------------------------------------------------

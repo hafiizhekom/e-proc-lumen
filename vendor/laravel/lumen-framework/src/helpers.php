@@ -1,11 +1,11 @@
 <?php
 
 use Illuminate\Container\Container;
-use Laravel\Lumen\Bus\PendingDispatch;
+use Illuminate\Contracts\Broadcasting\Factory as BroadcastFactory;
 use Illuminate\Contracts\Bus\Dispatcher;
 use Illuminate\Contracts\Debug\ExceptionHandler;
+use Laravel\Lumen\Bus\PendingDispatch;
 use Symfony\Component\Debug\Exception\FatalThrowableError;
-use Illuminate\Contracts\Broadcasting\Factory as BroadcastFactory;
 
 if (! function_exists('abort')) {
     /**
@@ -330,7 +330,7 @@ if (! function_exists('trans')) {
             return app('translator');
         }
 
-        return app('translator')->trans($id, $replace, $locale);
+        return app('translator')->get($id, $replace, $locale);
     }
 }
 
@@ -345,7 +345,7 @@ if (! function_exists('__')) {
      */
     function __($key, $replace = [], $locale = null)
     {
-        return app('translator')->getFromJson($key, $replace, $locale);
+        return app('translator')->get($key, $replace, $locale);
     }
 }
 
@@ -361,7 +361,7 @@ if (! function_exists('trans_choice')) {
      */
     function trans_choice($id, $number, array $replace = [], $locale = null)
     {
-        return app('translator')->transChoice($id, $number, $replace, $locale);
+        return app('translator')->choice($id, $number, $replace, $locale);
     }
 }
 

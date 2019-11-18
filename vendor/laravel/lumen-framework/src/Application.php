@@ -2,20 +2,20 @@
 
 namespace Laravel\Lumen;
 
-use RuntimeException;
-use Illuminate\Support\Str;
+use Illuminate\Config\Repository as ConfigRepository;
+use Illuminate\Container\Container;
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\Http\Request;
 use Illuminate\Log\LogManager;
 use Illuminate\Support\Composer;
-use Laravel\Lumen\Routing\Router;
-use Illuminate\Container\Container;
-use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\ServiceProvider;
-use Zend\Diactoros\Response as PsrResponse;
-use Illuminate\Config\Repository as ConfigRepository;
+use Illuminate\Support\Str;
+use Laravel\Lumen\Routing\Router;
+use RuntimeException;
 use Symfony\Bridge\PsrHttpMessage\Factory\DiactorosFactory;
 use Symfony\Component\HttpFoundation\Request as SymfonyRequest;
+use Zend\Diactoros\Response as PsrResponse;
 
 class Application extends Container
 {
@@ -140,7 +140,7 @@ class Application extends Container
      */
     public function version()
     {
-        return 'Lumen (5.8.12) (Laravel Components 5.8.*)';
+        return 'Lumen (6.2.0) (Laravel Components ^6.0)';
     }
 
     /**
@@ -760,6 +760,17 @@ class Application extends Container
     }
 
     /**
+     * Get the path to the application configuration files.
+     *
+     * @param  string  $path
+     * @return string
+     */
+    public function configPath($path = '')
+    {
+        return $this->basePath.DIRECTORY_SEPARATOR.'config'.($path ? DIRECTORY_SEPARATOR.$path : $path);
+    }
+
+    /**
      * Get the path to the database directory.
      *
      * @param  string  $path
@@ -925,6 +936,39 @@ class Application extends Container
         $this->router = null;
         $this->dispatcher = null;
         static::$instance = null;
+    }
+
+    /**
+     * Get the current application locale.
+     *
+     * @return string
+     */
+    public function getLocale()
+    {
+        return $this['config']->get('app.locale');
+    }
+
+    /**
+     * Set the current application locale.
+     *
+     * @param  string  $locale
+     * @return void
+     */
+    public function setLocale($locale)
+    {
+        $this['config']->set('app.locale', $locale);
+        $this['translator']->setLocale($locale);
+    }
+
+    /**
+     * Determine if application locale is the given locale.
+     *
+     * @param  string  $locale
+     * @return bool
+     */
+    public function isLocale($locale)
+    {
+        return $this->getLocale() == $locale;
     }
 
     /**

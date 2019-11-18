@@ -18,7 +18,7 @@ class LoginMiddleware
     {
            
         $validator = Validator::make($request->all(), [
-            'username' => 'required',
+            'email'=>'required|email|max:50',
             'password' => 'required',
         ]);
 

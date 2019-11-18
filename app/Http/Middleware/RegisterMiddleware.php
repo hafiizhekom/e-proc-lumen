@@ -18,7 +18,6 @@ class RegisterMiddleware
     {
            
         $validator = Validator::make($request->all(), [
-            'username' => 'required|string|unique:user|max:15',
             'nama_lengkap' => 'required|string|max:100',
             'email'=>'required|email|unique:user|max:50',
             'password' => [
@@ -31,7 +30,7 @@ class RegisterMiddleware
                 'regex:/[@$!%*#?&]/', // must contain a special character
             ],
             'password_confirm' => 'required|same:password',
-            'jenis_kelamin'=>'required|in:Wanita,Pria',
+            'id_jenis_kelamin'=>'required|integer',
             'tanggal_lahir'=>'required|date_format:Y-m-d|before:today',
             'no_handphone'=>'required|string|regex:/[0-9]/|max:15',
             'alamat'=>'required|string|max:255',

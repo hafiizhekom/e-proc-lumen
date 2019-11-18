@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Exception;
-use App\User;
+use App\Model\User;
 use Firebase\JWT\JWT;
 use Firebase\JWT\ExpiredException;
 
@@ -35,11 +35,23 @@ class JwtMiddleware
         
         $dataUser = explode("-", $credentials->sub);
 
-        //$user = User::find($credentials->sub);
+        $user = User::find($credentials->sub);
 
         // Now let's put the user in the request class so that you can grab it from there
         $request->auth = $dataUser;
 
         return $next($request);
+    }
+}
+
+class AfterMiddleware
+{
+    public function handle($request, Closure $next)
+    {
+        $response = $next($request);
+
+        // Perform action
+
+        return $response;
     }
 }
